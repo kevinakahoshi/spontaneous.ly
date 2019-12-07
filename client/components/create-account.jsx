@@ -84,7 +84,7 @@ class CreateAccount extends React.Component {
               accept="image/png, image/jpeg, image/jpg"
               required />
             <label className="custom-file-label"
-              htmlFor="validatedCustomFile">Choose file...</label>
+              htmlFor="validatedCustomFile">{this.state.image !== '' ? this.state.image : 'Choose a File..'}</label>
             <div className="invalid-feedback">Not a supported file type</div>
           </div>
           <button type="submit" className="spon-button rounded text-white w-100" value="Submit">Submit</button>
