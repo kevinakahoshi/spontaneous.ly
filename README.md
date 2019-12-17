@@ -60,3 +60,4 @@ Link: https://spontaneouslyapp.com/
 - User can log into their account
 
 # Preview
+![spontaneously](https://user-images.githubusercontent.com/53406674/70954210-14036d80-2021-11ea-9367-cf96cdc1f93e.gif)
