@@ -1,5 +1,5 @@
 # Spontaneous.ly
-Sponatenous.ly is an app that is designed for users that want to partake in a spontaneous adventure.  
+Sponatenous.ly is an app that is designed for users that want to partake in a spontaneous adventure.
 [WORK IN PROGRESS]
 
 ### Figma
@@ -56,6 +56,7 @@ Link: https://spontaneouslyapp.com/
 - User can view their friends list
 - User can view their pending friend requests
 - User can send and receive messages from friends
-- User can view past activities and more
+- User can view past activities
+- User can log into their account
 
 # Preview
