@@ -1,19 +1,6 @@
-### Spontaneous.ly
-Sponatenous.ly is an app that is designed for users that want to partake in a spontaneous adventure.  [WORK IN PROGRESS]
-
-Users can:
-- Search by zip code
-- Filter results based on level of adventure, cost, and distance from their zipcode
-- Select an activity to commit to in their area
-- Reserve a spot at that activity
-- Gain points for completing the activity
-- Meet new people at the activity
-- Request to be a friend of other guests at that activity
-- View ther Spontaneity Points
-- View their friends list
-- View their pending friend requests
-- Send and receive messages from friends
-- View past activities and more
+# Spontaneous.ly
+Sponatenous.ly is an app that is designed for users that want to partake in a spontaneous adventure.  
+[WORK IN PROGRESS]
 
 ### Figma
 - https://www.figma.com/file/EjwaZdxQ74QSmY26RoPJ01/Spontaneous.ly?node-id=84%3A25
@@ -53,3 +40,22 @@ Users can:
 
 - CSS IDs: kebab-case
 -- Example: #example-id
+
+# Live Demo
+Link: https://spontaneouslyapp.com/
+
+# Features
+- User can by zip code
+- User can filter results based on level of adventure, cost, and distance from their zipcode
+- User can select an activity to commit to in their area
+- User can reserve a spot at that activity
+- User can gain points for completing the activity
+- User can meet new people at the activity
+- User can request to be a friend of other guests at that activity
+- User can view ther Spontaneity Points
+- User can view their friends list
+- User can view their pending friend requests
+- User can send and receive messages from friends
+- User can view past activities and more
+
+# Preview
