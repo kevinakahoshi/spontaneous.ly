@@ -68,7 +68,14 @@ class App extends React.Component {
   fetchUser() {
     fetch('/api/users')
       .then(results => results.json())
-      .then(user => { this.setState({ user, fetchingUser: false }); this.getPoints(user.userId); })
+      .then(user => {
+        if (user) {
+          this.setState({ user, fetchingUser: false });
+          this.getPoints(user.userId);
+        } else {
+          this.setState({ fetchingUser: false });
+        }
+      })
       .catch(error => console.error('There was an error:', error.message));
 
   }
