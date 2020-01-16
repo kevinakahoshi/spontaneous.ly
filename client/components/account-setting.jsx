@@ -63,7 +63,6 @@ class AccountSetting extends React.Component {
     }
     this.props.fetchUser();
     this.changeDetail();
-    this.props.history.push(`/profile?userId=${this.props.user.userId}`);
   }
 
   changeDetail() {
@@ -115,6 +114,7 @@ class AccountSetting extends React.Component {
       .then(results => results.json())
       .then(data => {
         this.props.fetchUser();
+        this.props.history.push(`/profile?userId=${this.props.user.userId}`);
       })
       .catch(error => console.error('There was an error:', error.message));
   }
