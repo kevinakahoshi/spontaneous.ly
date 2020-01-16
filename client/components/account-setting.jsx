@@ -23,112 +23,6 @@ class AccountSetting extends React.Component {
     this.changeDetail = this.changeDetail.bind(this);
   }
 
-  render() {
-    const firstName = this.state.firstName;
-    const lastName = this.state.lastName;
-    const email = this.state.email;
-    const password = this.state.password;
-    const invalidEmail = this.state.validEmail === false ? 'is-invalid' : null;
-    const invalidPass = this.state.validPassword === false ? 'is-invalid' : null;
-    return (
-      <div className="container my-5">
-        <h4 className="d-flex justify-content-center mb-4">Account Settings</h4>
-        <form onSubmit={this.handleSubmit}>
-          <div className="input-group input-group-sm mb-3">
-            <label className="account-setting-text">First Name:</label>
-            <div className="input-group mb-3">
-              <input name="firstName"
-                className="input-group account-setting-input w-100 mb-0 form-control"
-                value={firstName}
-                placeholder="Enter your First Name"
-                type="text"
-                onChange={this.handleChange}
-                required
-                readOnly={this.state.isReadOnly} />
-            </div>
-            <label className="account-setting-text">Last Name:</label>
-            <div className="input-group mb-3">
-              <input name="lastName"
-                className="input-group account-setting-input w-100 mb-0 form-control"
-                value={lastName}
-                placeholder="Enter your Last Name"
-                type="text"
-                onChange={this.handleChange}
-                required
-                readOnly={this.state.isReadOnly} />
-            </div>
-            <label className="account-setting-text">Email:</label>
-            <div className="input-group mb-3">
-              <input name="email"
-                className={`input-group account-setting-input w-100 mb-0 form-control ${invalidEmail}`}
-                value={email}
-                placeholder="Enter your Email"
-                type="text"
-                onChange={this.handleChange}
-                required
-                readOnly={this.state.isReadOnly} />
-              <div className="invalid-feedback">Must be a valid email.</div>
-            </div>
-            <label className="account-setting-text">Password:</label>
-            <div className="input-group mb-3">
-              <input name="password"
-                className={`input-group account-setting-input w-100 mb-0 form-control ${invalidPass}`}
-                value={password}
-                placeholder="••••••••••"
-                type="password"
-                onChange={this.handleChange}
-                required
-                readOnly={this.state.isReadOnly} />
-              <div className="invalid-feedback">Must contain 8 characters, and at least 1 number.</div>
-            </div>
-            <div>
-              <label className="account-setting-text">Upload Profile Picture:</label>
-              <div className="custom-file filename">
-                <input type="file"
-                  name="userUpload"
-                  onChange={this.fileUpload}
-                  className="custom-file-input"
-                  id="validatedCustomFile"
-                  accept="image/png, image/jpeg, image/jpg" />
-                <label className="custom-file-label"
-                  htmlFor="validatedCustomFile">{this.state.image !== '' ? this.state.image : 'Choose a file...'}</label>
-                <div className="invalid-feedback">Not a supported file type</div>
-              </div>
-            </div>
-          </div>
-          <div className="fixed-bottom p-3 overlap">
-            <div className="calc-button-50">
-              <EditOrSave
-                isEditing={this.state.changeDetail}
-                changeDetailCallback={this.changeDetail} />
-              <button
-                className="spon-button-cancel rounded mt-0"
-                onClick={() => this.props.history.goBack()}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    );
-  }
-
-  handleSubmit() {
-    event.preventDefault();
-    if (Object.getOwnPropertyNames(this.state.userUpload).length === 0) {
-      this.updateInfo({
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        image: this.state.image,
-        password: this.state.password
-      });
-      this.uploadHandler();
-    }
-    this.props.fetchUser();
-    this.props.history.push(`/profile?userId=${this.props.user.userId}`);
-  }
-
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
@@ -152,12 +46,24 @@ class AccountSetting extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.email !== prevState.email) {
-      this.validation();
-    } else if (this.state.password !== prevState.password) {
-      this.validation();
+  handleSubmit(event) {
+    event.preventDefault();
+    if (this.state.userUpload.name) {
+      this.uploadHandler();
+    } else {
+      if (Object.getOwnPropertyNames(this.state.userUpload).length === 0) {
+        this.updateInfo({
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          email: this.state.email,
+          image: this.state.image,
+          password: this.state.password
+        });
+      }
     }
+    this.props.fetchUser();
+    this.changeDetail();
+    this.props.history.push(`/profile?userId=${this.props.user.userId}`);
   }
 
   changeDetail() {
@@ -186,9 +92,6 @@ class AccountSetting extends React.Component {
     fetch('/api/image-upload', config)
       .then(results => results.json())
       .then(data => data);
-
-    const image = this.state.image;
-    this.updateInfo({ image });
     const userInfo = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -210,8 +113,116 @@ class AccountSetting extends React.Component {
     };
     fetch('/api/update-account', config)
       .then(results => results.json())
-      .then(data => data)
+      .then(data => {
+        this.props.fetchUser();
+      })
       .catch(error => console.error('There was an error:', error.message));
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.email !== prevState.email) {
+      this.validation();
+    } else if (this.state.password !== prevState.password) {
+      this.validation();
+    }
+  }
+
+  render() {
+    const firstName = this.state.firstName;
+    const lastName = this.state.lastName;
+    const email = this.state.email;
+    const password = this.state.password;
+    const invalidEmail = this.state.validEmail === false ? ' is-invalid' : '';
+    const invalidPass = this.state.validPassword === false ? ' is-invalid' : '';
+    return (
+      <div className="container my-5">
+        <h4 className="d-flex justify-content-center mb-4">Account Settings</h4>
+        <form onSubmit={this.state.changeDetail ? () => this.handleSubmit(event) : null}>
+          <div className="input-group input-group-sm mb-3">
+            <label className="account-setting-text">First Name:</label>
+            <div className="input-group mb-3">
+              <input name="firstName"
+                className="input-group account-setting-input w-100 mb-0 form-control"
+                value={firstName}
+                placeholder="Enter your First Name"
+                type="text"
+                onChange={this.handleChange}
+                required
+                readOnly={this.state.isReadOnly} />
+            </div>
+            <label className="account-setting-text">Last Name:</label>
+            <div className="input-group mb-3">
+              <input name="lastName"
+                className="input-group account-setting-input w-100 mb-0 form-control"
+                value={lastName}
+                placeholder="Enter your Last Name"
+                type="text"
+                onChange={this.handleChange}
+                required
+                readOnly={this.state.isReadOnly} />
+            </div>
+            <label className="account-setting-text">Email:</label>
+            <div className="w-100 mb-3">
+              <input name="email"
+                className={`w-100 account-setting-input w-100 mb-0 form-control${invalidEmail}`}
+                value={email}
+                placeholder="Enter your Email"
+                type="text"
+                onChange={this.handleChange}
+                required
+                readOnly={this.state.isReadOnly} />
+              <div className="invalid-feedback">Must be a valid email.</div>
+            </div>
+            <label className="account-setting-text">Password:</label>
+            <div className="w-100 mb-3">
+              <input name="password"
+                className={`w-100 account-setting-input w-100 mb-0 form-control${invalidPass}`}
+                value={password}
+                placeholder="••••••••••"
+                type="password"
+                onChange={this.handleChange}
+                required
+                readOnly={this.state.isReadOnly} />
+              <div className="invalid-feedback">Must contain 8 characters, and at least 1 number.</div>
+            </div>
+            <div className="w-100">
+              <label className="account-setting-text">Upload Profile Picture:</label>
+              <div className={this.state.isReadOnly ? 'd-none' : ''}>
+                <div className="custom-file filename">
+                  <input type="file"
+                    name="userUpload"
+                    onChange={this.fileUpload}
+                    className="custom-file-input"
+                    id="validatedCustomFile"
+                    accept="image/png, image/jpeg, image/jpg"
+                    disabled={this.state.isReadOnly} />
+                  <label className="custom-file-label"
+                    htmlFor="validatedCustomFile">{this.state.image !== '' ? this.state.image : 'Choose a file...'}</label>
+                  <div className="invalid-feedback">Not a supported file type</div>
+                </div>
+              </div>
+              <input name="image-placeholder"
+                className={`input-group account-setting-input w-100 mb-0 form-control ${this.state.isReadOnly ? '' : 'd-none'}`}
+                value={this.state.image}
+                type="text"
+                readOnly={this.state.isReadOnly} />
+            </div>
+          </div>
+          <div className="fixed-bottom p-3 overlap">
+            <div className="calc-button-50">
+              <EditOrSave
+                isEditing={this.state.changeDetail}
+                changeDetailCallback={this.changeDetail} />
+              <button
+                className="spon-button-cancel rounded mt-0"
+                onClick={() => this.props.history.goBack()}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    );
   }
 }
 
@@ -219,9 +230,19 @@ export default AccountSetting;
 
 function EditOrSave(props) {
   if (props.isEditing) {
-    return (<button className="spon-button text-white rounded mt-0" onClick={() => {
-      props.changeDetailCallback();
-    }}>Save</button>);
+    return (
+      <button
+        type="submit"
+        className="spon-button text-white rounded mt-0"
+      >Save</button>);
+  } else {
+    return (
+      <button
+        type="button"
+        className="spon-button text-white rounded mt-0"
+        onClick={() => {
+          props.changeDetailCallback();
+        }}
+      >Edit</button>);
   }
-  return (<button className="spon-button text-white rounded mt-0" onClick={props.changeDetailCallback}>Edit</button>);
 }

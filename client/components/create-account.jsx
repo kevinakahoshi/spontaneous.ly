@@ -1,4 +1,5 @@
 import React from 'react';
+
 class CreateAccount extends React.Component {
   constructor(props) {
     super(props);
@@ -61,6 +62,29 @@ class CreateAccount extends React.Component {
     this.uploadHandler();
     this.props.createUser(userInfo);
     this.props.history.push('/sign-in');
+  }
+
+  fileUpload(event) {
+    const image = event.target.files[0].name;
+    const userUpload = event.target.files[0];
+    this.setState({ userUpload });
+    this.setState({ image });
+  }
+
+  uploadHandler() {
+    const formData = new FormData();
+    formData.append(
+      'image',
+      this.state.userUpload,
+      this.state.userUpload.name
+    );
+    const config = {
+      method: 'POST',
+      body: formData
+    };
+    fetch('/api/image-upload', config)
+      .then(results => results.json())
+      .then(data => data);
   }
 
   render() {
@@ -139,29 +163,6 @@ class CreateAccount extends React.Component {
         </form>
       </div>
     );
-  }
-
-  fileUpload(event) {
-    const image = event.target.files[0].name;
-    const userUpload = event.target.files[0];
-    this.setState({ userUpload });
-    this.setState({ image });
-  }
-
-  uploadHandler() {
-    const formData = new FormData();
-    formData.append(
-      'image',
-      this.state.userUpload,
-      this.state.userUpload.name
-    );
-    const config = {
-      method: 'POST',
-      body: formData
-    };
-    fetch('/api/image-upload', config)
-      .then(results => results.json())
-      .then(data => data);
   }
 }
 
