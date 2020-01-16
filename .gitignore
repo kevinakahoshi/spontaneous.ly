@@ -3,7 +3,7 @@
 .DS_Store
 _config.php
 node_modules/
-server/public/assets/images/users/
+server/public/assets/images/users
 server/sessions/sess_*
 server/public/main.js*
 router-menu-nav.jsx
