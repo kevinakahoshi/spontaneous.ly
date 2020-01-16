@@ -152,7 +152,7 @@ class CreateAccount extends React.Component {
               id="validatedCustomFile"
               accept="image/png, image/jpeg, image/jpg"
               required />
-            <label className="custom-file-label"
+            <label className="custom-file-label overflow-hidden"
               htmlFor="validatedCustomFile">{this.state.image !== '' ? this.state.image : 'Choose a file...'}</label>
             <div className="invalid-feedback">Not a supported file type</div>
           </div>
