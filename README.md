@@ -1,6 +1,5 @@
 # Spontaneous.ly
 Sponatenous.ly is an app that is designed for users that want to partake in a spontaneous adventure.
-[WORK IN PROGRESS]
 
 ### Figma
 - https://www.figma.com/file/EjwaZdxQ74QSmY26RoPJ01/Spontaneous.ly?node-id=84%3A25
