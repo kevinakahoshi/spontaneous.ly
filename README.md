@@ -44,19 +44,23 @@ Sponatenous.ly is an app that is designed for users that want to partake in a sp
 Link: https://spontaneouslyapp.com/
 
 # Features
-- User can by zip code
-- User can filter results based on level of adventure, cost, and distance from their zipcode
+- User can create an account
+- User can log into their account
+- User can search for activities by zip code
+- User can filter activity results based on level of adventure, cost, and distance from their zipcode
 - User can select an activity to commit to in their area
 - User can reserve a spot at that activity
 - User can gain points for completing the activity
-- User can meet new people at the activity
+- User can meet other users through mutual attendance of the activity
 - User can request to be a friend of other guests at that activity
+- User can accept friend requests from other users
+- User can deny friend requests from other users
 - User can view ther Spontaneity Points
 - User can view their friends list
 - User can view their pending friend requests
-- User can send and receive messages from friends
+- User can send messages to friends
+- User can receive messages from friends
 - User can view past activities
-- User can log into their account
 
 # Preview
 ![spontaneously](https://user-images.githubusercontent.com/53406674/70954210-14036d80-2021-11ea-9367-cf96cdc1f93e.gif)
