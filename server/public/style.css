@@ -2,12 +2,6 @@ html {
   font-size: 16px;
 }
 
-@media (max-width: 979px) {
-  html {
-    font-size: 14px;
-  }
-}
-
 @font-face {
   font-family: Roboto Mono;
   src: url(assets/font/RobotoMono-Regular.ttf);
@@ -100,11 +94,11 @@ body {
 }
 
 .center-nav {
-  height: 57vh;
+  height: 75vh;
   background-image: linear-gradient(#801d8080, #ffc0cb80), url('assets/images/action-adult-balance-balancing-415176.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position-y: 25%;
   color: #fff;
 }
 
@@ -640,4 +634,14 @@ a:hover {
 
 .overlap {
   z-index: 1000;
+}
+
+@media (max-width: 979px) {
+  html {
+    font-size: 14px;
+  }
+
+  .center-nav {
+    height: 60vh;
+  }
 }
